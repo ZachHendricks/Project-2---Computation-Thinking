@@ -1,5 +1,11 @@
 # Project-2---Computation-Thinking
 
+Zach Hendricks, Carter Barnes, Elise Rodriguez
+
+import os
+
+os.mkdir('Assignment2')
+
 #set a breaking variable 
 typeStud = []
 loan = []
@@ -12,7 +18,7 @@ current_student = True #Statement to break the loop
 
 #Get the inputs
 while current_student == True:
-    
+    years += 1  
     try:    
         Studenttype = input("Enter I for Independend or D for Dependent Student for this school year: ")
         if Studenttype == "I" or Studenttype == "D":
@@ -27,11 +33,17 @@ while current_student == True:
     while True: #loop to enter the loan amount/print error
         try:
             loanamt = int(input("What is the total loan amount for this school year: "))
-            if loanamt <= 12500:
+            if years == 1 and Studenttype == "I" and loanamt <=9500 or years == 1 and Studenttype == "D" and loanamt <= 5500:
+                loan.append(loanamt)
+                break
+            elif years == 2 and Studenttype == "I" and loanamt <=10500 or years == 2 and Studenttype == "D" and loanamt <= 6500:
+                loan.append(loanamt)
+                break
+            elif years > 2 and Studenttype == "I" and loanamt <=12500 or years > 2 and Studenttype == "D" and loanamt <= 7500:
                 loan.append(loanamt)
                 break
             else:
-                print("Error: Please enter valid loan amount")
+                print("Error: Please enter valid loan amount. See studentaid.gov to verify loan amount.")
                 continue
         except:
             print("Error: Please enter valid loan amount")
@@ -68,34 +80,4 @@ while current_student == True:
                 print("Error: Invalid input. Please enter 'Y' or 'N'")
                 continue
         except:
-            print("Error: Invalid input. Please enter 'Y' or 'N'")
-    
-    
-#add a year to the count
-    years += 1
-
-#Part B
-
-subLoanLimit = [3500,4500,5500]
-indepLoanLimit = [9500,10500,12500]
-depLoanLimit = [5500,6500,7500]
-Total = 0
-
-for academic_year in range(years):
-    if academic_year < 2:
-        ind = academic_year
-    else:
-        ind = min(2, academic_year)
-        
-    #Unsub loan amount
-    UnsubsidizedAmt = loan[academic_year] - subLoanLimit[ind]
-    #interest
-    An_unsub = unsubRate[academic_year]
-    Mon_unsub= An_unsub / 12 / 100
-    
-    months = (years - academic_year)* 12 + 3
-    
-    for i in range(months):
-        UnsubsidizedAmt *= (1 + Mon_unsub)
-        
-    Total = Total + UnsubsidizedAmt + subLoanLimit[ind]
+            print("Error: Invalid input. Please enter 'Y' or 'N'") 
